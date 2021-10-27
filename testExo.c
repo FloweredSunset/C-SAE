@@ -17,7 +17,8 @@ int main(void) {
    while(!fin) {
       char *clear="clear";
       
-      printf("1.Passer une commande\n" /* affichage menu */
+      printf("Menu:\n"
+               "1.Passer une commande\n" /* affichage menu */
                "2.Accéder à l'historique des commandes\n"
                "3.Accéder à la gestion des stocks\n"
                "4.Quitter\n");
@@ -46,7 +47,7 @@ int main(void) {
             system(clear);
             printf("STATUS: Exécution de la fonction de gestion des stocks.\n");
             gstock(tabNum, tabStock, taille);
-            printf("STATUS: Fonction de gestion des stocks terminée.\n");
+            printf("STATUS: Fonction de gestion des stocks terminée.\n\n");
             continue;
  
          case 4:
