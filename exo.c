@@ -152,3 +152,90 @@ void historiqueCommande(int tabInfo[], int taille) {
 	
 	}
 }
+
+int gstock(int tabNum[], int tabStock[], int taille) {
+
+   
+    int nb = 0, numL, nInStockL, n=0, tabV[5] = {0,0,0,0,0}, NSeuil[taille], nbSeuil=0;
+
+  
+    FILE *fs;
+    fs=fopen("livres","r");
+
+     if (fs == NULL) {
+        printf("Error: Erreur lors de l'ouverture du fichier.\n");
+        return -1;
+    }
+
+
+
+    while (feof(fs)==0) {
+
+        fscanf(fs,"%d %*c %d %*f ",&numL, &nInStockL);
+
+        tabNum[nb]=numL;
+        tabStock[nb]=nInStockL;
+
+        printf(" %d\t",tabNum[nb]);
+        printf("%d\n",tabStock[nb]);
+       
+
+        if(nInStockL<5) {
+            n=0;
+            tabV[n]+=1;
+            NSeuil[nbSeuil]=tabNum[nb];
+            nbSeuil++;
+        };
+        if(nInStockL<10) {
+            n=1;
+            tabV[n]+=1;
+        };
+        if(nInStockL<15) {
+            n=2;
+            tabV[n]+=1;
+        };
+        if(nInStockL<20) {
+            n=3;
+            tabV[n]+=1;
+        };
+        if(nInStockL<25) {
+            n=4;
+            tabV[n]+=1;
+        };
+        nb++;
+
+     }
+
+
+
+
+    printf("-> %d livres ont étés trouvés.\n\n",nb);
+
+    printf("---------------------------------------------------------Seuils---------------------------------------------------------\n\n");
+
+     printf("\t\tMoins de 5\tMoins de 10\tMoins de 15\tMoins de 20\tMoins de 25\n");
+
+    n=0 ;
+    printf("\t\t");
+    while(n<5){
+        printf("%d\t\t",tabV[n]);
+        n++;
+       
+    }
+    printf("\n\n");
+    n = 0;
+    printf("---------------------------------------------------------Le numéro des livres dont le stock est inférieur à 5---------------------------------------------------------\n\n");
+  
+   
+
+
+     while(n<nbSeuil) {
+        if(NSeuil[n]<10) printf("WARNING: Le livre n°0%d est en dessous du seuil critique (5).\n",NSeuil[n]);
+        else printf("WARNING: Le livre n°%d est en dessous du seuil critique (5).\n",NSeuil[n]);
+        n++;
+     }
+      printf("\n");
+
+         fclose(fs);
+return 0;
+}
