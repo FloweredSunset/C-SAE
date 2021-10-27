@@ -5,9 +5,9 @@
 int main(void) {
    /* ------------------------------- */
 
-	int tabNum[40], tabStock[40], tabInfo[4], fin, choix;
-	float tabPrix[40];
-	char tabNom[40],*clear="clear";
+	int taille=40,tabNum[taille], tabStock[taille], tabInfo[4], fin, choix;
+	float tabPrix[taille];
+	char tabNom[taille],*clear="clear";
 
    /* ------------------------------- */
    system(clear);
@@ -19,7 +19,7 @@ int main(void) {
       
       printf("1.Passer une commande\n" /* affichage menu */
                "2.Accéder à l'historique des commandes\n"
-               "3.Choix 3\n"
+               "3.Accéder à la gestion des stocks\n"
                "4.Quitter\n");
 
       printf("\n--> ");
@@ -30,7 +30,7 @@ int main(void) {
          case 1:
             system(clear);
             printf("\nSTATUS: Exécution de la fonction passage de commande.\n");
-            commande(tabNum, tabNom, tabStock, tabPrix, 40, tabInfo);
+            commande(tabNum, tabNom, tabStock, tabPrix, taille, tabInfo);
             printf("STATUS: Commande passée.\n\n");
             printf("RESULT:\n\tAjout de la commande passée à l'historique\n\tn°client: %d\n\tn°livre : %d\n\tnb livre: %d\n\n",tabInfo[0],tabInfo[1],tabInfo[2]);
             continue;
@@ -44,7 +44,9 @@ int main(void) {
 
          case 3:
             system(clear);
-            printf("Choix 3\n");
+            printf("STATUS: Exécution de la fonction de gestion des stocks.\n");
+            gstock(tabNum, tabStock, taille);
+            printf("STATUS: Fonction de gestion des stocks terminée.\n");
             continue;
  
          case 4:
