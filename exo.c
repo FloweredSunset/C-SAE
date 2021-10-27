@@ -115,16 +115,14 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 	printf("\nRécapitulatif de la commande:\n");
 	printf("-> n° de client: %d\n-> livre sélectionné: %d\n-> nb d'exemplaires achetés: %d\n-> prix total: %2.2f\n",numClient,lSelect,nbL,PrixCommande);
 	fclose(fs);
-	printf("\n---------------------------------\n\n");
 
-	printf("aaaaaaaaaaaaaaaaa\n");
-	printf("%d %d %d\n",numClient, lSelect, nbL );
 	fprintf(fichier,"%d\t%d\t%d\n",numClient, lSelect, nbL);
-	printf("aaaaaaaaaaaaaaaaa\n");
 
 	tabInfo[0]=numClient;
 	tabInfo[1]=lSelect;
 	tabInfo[2]=nbL;
+
+	printf("\n---------------------------------\n\n");
 
 	return *tabInfo;
 }
@@ -174,11 +172,7 @@ int gstock(int tabNum[], int tabStock[], int taille) {
         fscanf(fs,"%d %*c %d %*f ",&numL, &nInStockL);
 
         tabNum[nb]=numL;
-        tabStock[nb]=nInStockL;
-
-        printf(" %d\t",tabNum[nb]);
-        printf("%d\n",tabStock[nb]);
-       
+        tabStock[nb]=nInStockL;   
 
         if(nInStockL<5) {
             n=0;
@@ -206,36 +200,30 @@ int gstock(int tabNum[], int tabStock[], int taille) {
 
      }
 
+    printf("\n-> %d livres ont étés trouvés.\n\n",nb);
+ 	printf(",------------------,---------,---------,---------,---------,\n");
+    printf("|Seuil:\t    - de 5 | - de 10 | - de 15 | - de 20 | - de 25 |\n");
+    printf("|------------------'---------'---------'---------'---------|\n");
 
-
-
-    printf("-> %d livres ont étés trouvés.\n\n",nb);
-
-    printf("---------------------------------------------------------Seuils---------------------------------------------------------\n\n");
-
-     printf("\t\tMoins de 5\tMoins de 10\tMoins de 15\tMoins de 20\tMoins de 25\n");
 
     n=0 ;
-    printf("\t\t");
-    while(n<5){
-        printf("%d\t\t",tabV[n]);
+    printf("|nb livres:\t"); /* printf(" %d       ",tabV[n]); */
+    while(n<4){
+        printf(" %d       ",tabV[n]);
         n++;
-       
     }
-    printf("\n\n");
+    printf(" %d |",tabV[4]);
+    printf("\n'----------------------------------------------------------'\n\n");
     n = 0;
-    printf("---------------------------------------------------------Le numéro des livres dont le stock est inférieur à 5---------------------------------------------------------\n\n");
-  
-   
-
-
-     while(n<nbSeuil) {
-        if(NSeuil[n]<10) printf("WARNING: Le livre n°0%d est en dessous du seuil critique (5).\n",NSeuil[n]);
-        else printf("WARNING: Le livre n°%d est en dessous du seuil critique (5).\n",NSeuil[n]);
+    while(n<nbSeuil) {
+    	if(NSeuil[n]<10) printf("WARNING: Le livre n°0%d est en dessous du seuil critique (5)\n",NSeuil[n]);
+        else printf("WARNING: Le livre n°%d est en dessous du seuil critique (5)\n",NSeuil[n]);
         n++;
-     }
-      printf("\n");
+    }
 
-         fclose(fs);
-return 0;
+    if(tabV[0]==1) printf("\n-> %d WARNING a été trouvé.\n\n",tabV[0]);
+	else printf("\n-> %d WARNINGS ont étés trouvés.\n\n",tabV[0]);
+       
+    fclose(fs);
+	return 0;
 }
