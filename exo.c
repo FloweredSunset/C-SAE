@@ -216,10 +216,10 @@ void historiqueCommande(int comptageH) {
 		tabL[nb]=numL;
 		tabNbL[nb]=nbL;
 
-		printf("   n°%d\t\t",nb);
-		printf("     %d\t\t",tabNum[nb]);
-		printf("     %d\t\t",tabL[nb]);
-		printf("     %d\n",tabNbL[nb]);
+		printf("  n°%d\t\t",nb);
+		printf("  %d\t\t",tabNum[nb]);
+		printf("  %d\t\t",tabL[nb]);
+		printf("  %d\n",tabNbL[nb]);
 	
 	}
 }
