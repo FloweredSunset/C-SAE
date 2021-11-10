@@ -4,15 +4,21 @@
 
 int main(void) {
 
-   /* ------------------------------- */
+   //taille -> Taille des tableaux. fin -> menu. choix -> menu. comptageH -> taille du tableau pour historique
+   int taille=40, fin=0, choix, comptageH=0;
+   
+   //-> Utile pour clear le terminal à chaque changement d'état du programme
+   char *clear="clear";
 
-	int taille=40,tabNum[taille], tabStock[taille], tabInfo[4], fin, choix, comptageH=0;
-	float tabPrix[taille];
-	char tabNom[taille],*clear="clear";
+   /* Initialisation des tableaux (tableau qui renvoie les informations, noms, prix, stock et numéro du produit) */
+   int tabNum[taille], tabStock[taille], tabInfo[4];
+   char tabNom[taille];
+   float tabPrix[taille];
 
-   /* ------------------------------- */
+   //clear le terminal (côtés esthétique).
    system(clear);
 
+   // Affichage d'un livre (côtés esthétique).
    printf("\n              .--.                   .---.\n");
    printf("          .---|__|           .-.     |~~~|\n");
    printf("       .--|===|--|_          |_|     |~~~|--.\n");
@@ -25,17 +31,15 @@ int main(void) {
    printf("       ^--^---'--^    `-'`---^-^--^--^---'--'\n\n");
 
    /* Boucle pour le menu */
-   fin = 0;
-  
    while(!fin) {
       char *clear="clear";
       
       printf("Menu:\n"
-               "1.Passer un devis\n"
-               "2.Passer une commande\n" /* affichage menu */
-               "3.Accéder à l'historique des commandes\n"
-               "4.Accéder à la gestion des stocks\n"
-               "5.Quitter\n");
+               "1. Passer un devis\n"
+               "2. Passer une commande\n" /* affichage menu */
+               "3. Accéder à l'historique des commandes\n"
+               "4. Accéder à la gestion des stocks\n"
+               "9. Exit\n");
 
       printf("\n--> ");
       scanf("%d",&choix);
@@ -53,8 +57,9 @@ int main(void) {
             system(clear);
             printf("\nSTATUS: Exécution de la fonction passage de commande.\n");
             commande(tabNum, tabNom, tabStock, tabPrix, taille, tabInfo);
-            printf("STATUS: Commande passée.\n\n");
-            printf("RESULT:\n\tAjout de la commande passée à l'historique\n\tn°client: %d\n\tn°livre : %d\n\tnb livre: %d\n\n",tabInfo[0],tabInfo[1],tabInfo[2]);
+            printf("\nSTATUS: Fin de la fonction commande.\n\n");
+            printf("-----| Si 0 n'a pas été sélectionné |-----\n");
+            printf("RESULT:\n\n\tAjout de la commande passée à l'historique\n\tn°client: %d\n\tn°livre : %d\n\tnb livre: %d\n\n",tabInfo[0],tabInfo[1],tabInfo[2]);
             continue;
 
          case 3:
@@ -68,7 +73,7 @@ int main(void) {
                comptageH++;
                fscanf(historique,"%*d %*c %*d %*f ");
             }
-            comptageH++;
+            comptageH+=2;
 
             historiqueCommande(comptageH);
             printf("\nSTATUS: Fonction d'affichage de l'historique terminée.\n\n");
@@ -82,13 +87,14 @@ int main(void) {
             printf("STATUS: Fonction de gestion des stocks terminée.\n\n");
             continue;
          
-         case 5:
+         case 9:
             system(clear);
             fin = 1;
             continue;
+
          default:
             system(clear);
-            printf("Choix errone\n");
+            printf("\nERROR: case sélectionnée inexistante.\n\n");
       }
    }
 
