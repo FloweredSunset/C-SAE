@@ -98,29 +98,31 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 
 		printf("\nPrix total de votre commande: %2.2f €\n\n",PrixCommande);
 
-		printf("Êtes-vous sûr de vouloir passer cette commande ? (0 to abort, anything else to confirm)\n");
+		printf("Êtes-vous sûr de vouloir passer cette commande ? (0: abandon   1: recommencer   2: continuer)\n");
 		printf("->");
 		scanf("%d",&reponse);
 		
-		if(reponse!=0) fin=1;
-		else {
-			system(clear);
-			printf("STATUS: ARRÊT DE LA FONCTION ('0' sélectionné)\n");
-			printf("STATUS: RESTART de la fonction\n\n");
-			nb=0;
+		if(reponse==2) fin=1;
+		else if(reponse==1) {
+				system(clear);
+				printf("STATUS: ARRÊT DE LA FONCTION ('0' sélectionné)\n");
+				printf("STATUS: RESTART de la fonction\n\n");
+				nb=0;
+				while (nb<taille) {
+					nb+=1;
 
-			while (nb<taille) {
-			nb+=1;
-
-			tabNum[nb]=0;
-			tabNom[nb]=0;
-			tabStock[nb]=0;
-			tabPrix[nb]=0;
+					tabNum[nb]=0;
+					tabNom[nb]=0;
+					tabStock[nb]=0;
+					tabPrix[nb]=0;
+					nb=0;
+				}
 			}
-
-			nb=0;
-
-		}
+			else if(reponse==0) return 0;
+				else {
+					printf("ERROR: le choix sélectionné est invalide.\n");
+					return 0;
+				}
 	}
 
 	printf("\nRécapitulatif de la commande:\n");
