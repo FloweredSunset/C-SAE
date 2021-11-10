@@ -12,7 +12,6 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 	FILE *fs, *fichier;
 
 	fs=fopen("livres","r");
-	fichier=fopen("historique","a");
 
 	perror("\nLancement de la commande");
 	printf("\n");
@@ -108,7 +107,19 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 			system(clear);
 			printf("STATUS: ARRÊT DE LA FONCTION ('0' sélectionné)\n");
 			printf("STATUS: RESTART de la fonction\n\n");
-			fin=0;
+			nb=0;
+
+			while (nb<taille) {
+			nb+=1;
+
+			tabNum[nb]=0;
+			tabNom[nb]=0;
+			tabStock[nb]=0;
+			tabPrix[nb]=0;
+			}
+
+			nb=0;
+
 		}
 	}
 
@@ -116,7 +127,11 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 	printf("-> n° de client: %d\n-> livre sélectionné: %d\n-> nb d'exemplaires achetés: %d\n-> prix total: %2.2f\n",numClient,lSelect,nbL,PrixCommande);
 	fclose(fs);
 
+	fichier=fopen("historique","a");
+
 	fprintf(fichier,"%d\t%d\t%d\n",numClient, lSelect, nbL);
+
+	fclose(fichier);
 
 	tabInfo[0]=numClient;
 	tabInfo[1]=lSelect;
@@ -126,8 +141,13 @@ int commande(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int t
 
 	return *tabInfo;
 }
-/*
-void devis(int tabInfo[], int taille) {
+
+void devis(int tabNum[], char tabNom[], int tabStock[], float tabPrix[], int taille, int tabInfo[]) {
+	int nb, nbL, numL, nInStockL, lSelect;
+	float priceL,PrixCommande;
+	char nameL;
+	FILE *fs;
+	fs=fopen("livres","r");
 	while (nb<taille) {
 		nb+=1;
 
@@ -178,16 +198,16 @@ void devis(int tabInfo[], int taille) {
 		PrixCommande=(nbL*tabPrix[lSelect]);
 
 		printf("\nPrix total de votre commande: %2.2f €\n\n",PrixCommande);
-} */
+} 
 
-void historiqueCommande(int tabInfo[], int taille) {
+void historiqueCommande(int comptageH) {
 	FILE *fichier;
-	int nb=0, numC, numL, nbL, tabNum[40], tabL[40], tabNbL[40];
+	int nb=0, numC, numL, nbL, tabNum[comptageH], tabL[comptageH], tabNbL[comptageH];
 
 	fichier=fopen("historique","r");
 
 	printf("\nNum-Commande:\tNum-Client:\tNum-Livre:\tNb-Exemplaires:\n");
-	while (nb<taille) {
+	while (nb<comptageH) {
 		nb+=1;
 
 		fscanf(fichier,"%d %d %d",&numC, &numL, &nbL);
@@ -196,7 +216,7 @@ void historiqueCommande(int tabInfo[], int taille) {
 		tabL[nb]=numL;
 		tabNbL[nb]=nbL;
 
-		printf("     %d\t\t",nb);
+		printf("   n°%d\t\t",nb);
 		printf("     %d\t\t",tabNum[nb]);
 		printf("     %d\t\t",tabL[nb]);
 		printf("     %d\n",tabNbL[nb]);
