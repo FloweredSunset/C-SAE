@@ -33,7 +33,7 @@ int main(void) {
    /* Boucle pour le menu */
    while(!fin) {
       char *clear="clear";
-      
+   // Affichage des différentes fonctionnalitées    
       printf("Menu:\n"
                "1. Passer un devis\n"
                "2. Passer une commande\n" /* affichage menu */
@@ -41,18 +41,20 @@ int main(void) {
                "4. Accéder à la gestion des stocks\n"
                "9. Exit\n");
 
-      printf("\n--> ");
+      printf("\n--> "); 
+      // Stockage dans la variable choix  
       scanf("%d",&choix);
-
+      // Menu switch
       switch(choix)
       {
+          // Si l'utilisateur met 1 lancer la commande devis
          case 1:
             system(clear);
             printf("\nSTATUS: Exécution de la fonction de devis.\n");
             devis(tabNum, tabNom, tabStock, tabPrix, taille, tabInfo);
             printf("STATUS: Devis terminé.\n\n");
             continue;
-
+          // Si l'utilisateur met 2 lancer la fonction commande
          case 2:
             system(clear);
             printf("\nSTATUS: Exécution de la fonction passage de commande.\n");
@@ -61,7 +63,7 @@ int main(void) {
             printf("-----| Si 0 n'a pas été sélectionné |-----\n");
             printf("RESULT:\n\n\tAjout de la commande passée à l'historique\n\tn°client: %d\n\tn°livre : %d\n\tnb livre: %d\n\n",tabInfo[0],tabInfo[1],tabInfo[2]);
             continue;
-
+          // Si l'utilisateur met 3 lancer la fonction d'affichage d'historique
          case 3:
             system(clear);
             printf("STATUS: Exécution de la fonction d'affichage d'historique.\n");
@@ -79,19 +81,19 @@ int main(void) {
             printf("\nSTATUS: Fonction d'affichage de l'historique terminée.\n\n");
             comptageH=0;
             continue;
- 
+          // Si l'utilisateur met 4 lancer la foction de gestion des stocks
          case 4:
             system(clear);
             printf("STATUS: Exécution de la fonction de gestion des stocks.\n");
             gstock(tabNum, tabStock, taille);
             printf("STATUS: Fonction de gestion des stocks terminée.\n\n");
             continue;
-         
+          // Si l'utilisateur met 9 mettre fin aux switch
          case 9:
             system(clear);
             fin = 1;
             continue;
-
+          // Si l'utilisateur met un choix qui ne figure pas sur le menu, mettre une erreur et relancer la boucle
          default:
             system(clear);
             printf("\nERROR: case sélectionnée inexistante.\n\n");
